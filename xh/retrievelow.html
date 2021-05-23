@@ -1,0 +1,63 @@
+{% extends "staffBase.html" %}
+{% block title %}xhotel - Retrieve low in quantity products{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+{% if 'product_created' in session %}
+<div class="alert alert-success alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{ session.pop('product_created', None) }} was created.
+</div>
+{% elif 'product_updated' in session %}
+<div class="alert alert-warning alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{ session.pop('product_updated', None) }} was updated.
+</div>
+{% elif 'product_deleted' in session %}
+<div class="alert alert-danger alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{ session.pop('product_deleted', None) }} was deleted.
+</div>
+{% endif %}
+<div>
+<h1 class="display-4">Low quantity products</h1>
+<br>
+<br>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th></th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Status</th>
+        <th>Price</th>
+        <th>Remarks</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for product in products_list %}
+      <tr>
+                <td><img src ="{{url_for('static', filename='img/'+product.get_file())}}" alt="Product Image" width = 15%></td>
+        <td>{{ product.get_id() }}</td>
+        <td>{{ product.get_name() }}</td>
+        <td>{{ product.get_quantity() }}</td>
+        {% if product.get_quantity() < 10 %}
+        <td><span style="color:red">LOW</span></td>
+        {% else %}
+        <td>NORMAL</td>
+        {% endif %}
+        <td>{{ product.get_price() }}</td>
+        <td>{{ product.get_remarks() }}</td>
+        <td><a href ="/createOrders/{{product.get_id()}}" button type="button" class="btn btn-warning">
+            Order
+          </a></button></td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+{% endblock %}
+
+
