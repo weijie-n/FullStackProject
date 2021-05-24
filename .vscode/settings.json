@@ -1,4 +1,0 @@
-{
-	"typescript.tsdk": "node_modules/vscode-typescript/lib",
-	"typescript.enablePromptUseWorkspaceTsdk": true
-}
