@@ -9,7 +9,7 @@ import CookieParser    from 'cookie-parser';
 import MethodOverrides from 'method-override';
 import Path            from 'path';
 
-import Nunjcks         from 'nunjucks';
+import Nunjucks         from 'nunjucks';
 
 const Server = Express();
 const Port   = process.env.PORT || 3000;
@@ -21,7 +21,7 @@ const Port   = process.env.PORT || 3000;
  * Trust me it saves your time more.
  * https://www.npmjs.com/package/express-nunjucks
  */
-Nunjcks.configure('templates', {
+Nunjucks.configure('templates', {
 	autoescape: true,
 	express:    Server
 })
