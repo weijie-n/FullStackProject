@@ -17,6 +17,9 @@ router.use("/auth", RouterAuth);
 import RouterFeedback from './feedback.mjs'
 router.use('/feedback', RouterFeedback)
 
+import RouterProduct from './product.mjs'
+router.use('/product', RouterProduct)
+
 // ---------------- 
 //	TODO:	Common URL paths here
 router.get("/",      async function(req, res) {
@@ -44,6 +47,20 @@ router.get("/feedback", async function(req, res) {
 router.get("/viewFeedback", async function(req, res) {
 	console.log("View Feedback page accessed");
 	return res.render('../templates/feedback/viewFeedback.html', {
+		title: "Hello World"
+	});
+});
+
+router.get("/product", async function(req, res) {
+	console.log("product page accessed");
+	return res.render('../templates/product/product.html', {
+		title: "Hello World"
+	});
+});
+
+router.get("/viewProduct", async function(req, res) {
+	console.log("View Product page accessed");
+	return res.render('../templates/product/viewProduct.html', {
 		title: "Hello World"
 	});
 });

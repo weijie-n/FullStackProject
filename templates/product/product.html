@@ -1,12 +1,10 @@
-{% extends "staffBase.html" %}
-{% block title %}xhotel - Create Products{% endblock %}
+{% extends "layouts/base.html" %}
+{% block title %}xhotel - Create Form{% endblock %}
 
-{% block content %}
-{% from "includes/_formHelper.html" import render_field %}
-
+{% block PageContent %}
 <h1>Products</h1>
 <br>
-<form method = "POST" action="">
+<form method = "post" action="/product/create">
   <div class="form-group">
     {{ render_field(form.file, class="form-control-file") }}
   </div>
@@ -29,5 +27,4 @@
   </div>
   <input type="submit" value="Submit" class="btn btn-primary"/>
 </form>
-{% endblock %}
-
+{% endblock PageContent %}
