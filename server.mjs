@@ -2,17 +2,17 @@
  * This example uses Nunjucks template engine for rendering pages
  */
 
-import Express         from 'express';
-import ExpSession      from 'express-session';
-import BodyParser      from 'body-parser';
-import CookieParser    from 'cookie-parser';
+import Express from 'express';
+import ExpSession from 'express-session';
+import BodyParser from 'body-parser';
+import CookieParser from 'cookie-parser';
 import MethodOverrides from 'method-override';
-import Path            from 'path';
+import Path from 'path';
 
-import Nunjucks         from 'nunjucks';
+import Nunjucks from 'nunjucks';
 
 const Server = Express();
-const Port   = process.env.PORT || 3000;
+const Port = process.env.PORT || 3000;
 
 /**
  * Template Engine
@@ -23,7 +23,7 @@ const Port   = process.env.PORT || 3000;
  */
 Nunjucks.configure('templates', {
 	autoescape: true,
-	express:    Server
+	express: Server
 })
 //	Sets `/public` to be the virtual path to access static files
 Server.use("/public", Express.static('public'));
@@ -31,7 +31,7 @@ Server.use("/public", Express.static('public'));
 /**
  * Form body parsers etc
  */
-Server.use(BodyParser.urlencoded( { extended: false }));
+Server.use(BodyParser.urlencoded({ extended: false }));
 Server.use(BodyParser.json());
 Server.use(CookieParser());
 Server.use(MethodOverrides('_method'));
@@ -40,9 +40,9 @@ Server.use(MethodOverrides('_method'));
  * Express Session
  */
 Server.use(ExpSession({
-	name:   'example-app',
+	name: 'example-app',
 	secret: 'random-secret',
-	resave:  false,
+	resave: false,
 	saveUninitialized: false
 }));
 
@@ -76,6 +76,6 @@ console.log(`===========================`);
 /**
  * Start the server in infinite loop
  */
-Server.listen(Port, function() {
+Server.listen(Port, function () {
 	console.log(`Server listening at port ${Port}`);
 });

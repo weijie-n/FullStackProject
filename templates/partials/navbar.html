@@ -37,25 +37,26 @@
 			</ul>
 			<ul class="navbar-nav ml-auto">
 				{% if user %}
-					<li class="nav-item dropdown">
-						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbarDropdownMenuLink">Video
-							Jots</a>
-						<div class="dropdown-menu">
-							<a href="/video/list" class="dropdown-item">Videos</a>
-							<a href="/video/add"  class="dropdown-item">Add Video</a>
-						</div>
-					</li>
-					<li class="nav-item">
-						<a href="/auth/logout" class="nav-link">Logout</a>
-					</li>
+				<li class="nav-item dropdown">
+					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
+						id="navbarDropdownMenuLink">Video
+						Jots</a>
+					<div class="dropdown-menu">
+						<a href="/video/list" class="dropdown-item">Videos</a>
+						<a href="/video/add" class="dropdown-item">Add Video</a>
+					</div>
+				</li>
+				<li class="nav-item">
+					<a href="/auth/logout" class="nav-link">Logout</a>
+				</li>
 				{% else %}
-					<li class="nav-item">
-						{#-- main.js router(/login) #}
-						<a href="/auth/login" class="nav-link">Login</a>
-					</li>
-					<li class="nav-item">
-						<a href="/auth/register" class="nav-link">Register</a>
-					</li>
+				<li class="nav-item">
+					{#-- main.js router(/login) #}
+					<a href="/auth/login" class="nav-link">Login</a>
+				</li>
+				<li class="nav-item">
+					<a href="/auth/register" class="nav-link">Register</a>
+				</li>
 				{% endif %}
 			</ul>
 		</div>

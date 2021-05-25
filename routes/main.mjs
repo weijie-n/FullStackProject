@@ -51,16 +51,3 @@ router.get("/viewFeedback", async function(req, res) {
 	});
 });
 
-router.get("/product", async function(req, res) {
-	console.log("product page accessed");
-	return res.render('../templates/product/product.html', {
-		title: "Hello World"
-	});
-});
-
-router.get("/viewProduct", async function(req, res) {
-	console.log("View Product page accessed");
-	return res.render('../templates/product/viewProduct.html', {
-		title: "Hello World"
-	});
-});
