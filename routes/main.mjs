@@ -14,7 +14,6 @@ router.get("/dynamic/:path", async function (req, res) {
 import RouterAuth from './auth.mjs'
 router.use("/auth", RouterAuth);
 
-
 // ---------------- 
 //	TODO:	Common URL paths here
 router.get("/",      async function(req, res) {
