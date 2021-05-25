@@ -14,6 +14,9 @@ router.get("/dynamic/:path", async function (req, res) {
 import RouterAuth from './auth.mjs'
 router.use("/auth", RouterAuth);
 
+import RouterFeedback from './feedback.mjs'
+router.use('/feedback', RouterFeedback)
+
 // ---------------- 
 //	TODO:	Common URL paths here
 router.get("/",      async function(req, res) {
@@ -28,5 +31,19 @@ router.get("/about", async function(req, res) {
 	return res.render('about.html', {
 		author: "The awesome programmer",
 		values: [1, 2, 3, 4, 5, 6]
+	});
+});
+
+router.get("/feedback", async function(req, res) {
+	console.log("Feedback page accessed");
+	return res.render('../templates/feedback/feedback.html', {
+		title: "Hello World"
+	});
+});
+
+router.get("/viewFeedback", async function(req, res) {
+	console.log("View Feedback page accessed");
+	return res.render('../templates/feedback/viewFeedback.html', {
+		title: "Hello World"
 	});
 });

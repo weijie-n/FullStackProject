@@ -5,21 +5,22 @@
 
 {% block PageContent %}
 <h1>About</h1>
-<p>This is a Node/Express app for jotting notes on video collection</p>
+<p>This is a Node/Express app for ordering your favourite Food!!</p>
 <p>Version: 1.0.0</p>
-<p>Created by: {{author}}</p>
+<p>Created by: Team fwcx</p>
 
-
+<h1 style="margin-left: 300px;" >Types of cuisines</h1>
 <div class="container">
 	<canvas id="myChart" width="400" height="400"></canvas>
 </div>
+
 
 <script>
 	var ctx = document.getElementById('myChart').getContext('2d');
 	var myChart = new Chart(ctx, {
 		type: 'bar',
 		data: {
-			labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+			labels: ['Indian', 'Malay', 'Thai', 'Chinese', 'Korean', 'Japanese'],
 			datasets: [{
 				label: '# of Votes',
 				data: [
