@@ -1,0 +1,41 @@
+{% extends "StaffBase.html" %}
+{% block title %}xhotel - Orders{% endblock %}
+
+{% block content %}
+<h1 class="display-4">Orders</h1>
+<div>
+  {% if count == 0 %}
+  <p>There are no orders.</p>
+  {% elif count == 1 %}
+  <p>There is 1 order.</p>
+  {% else %}
+  <p>There are {{ count }} orders.</p>
+  {% endif %}
+</div>
+<div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Product ID</th>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Delivered By</th>
+        <th>Supplier</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for supp_order in supp_orders_list %}
+      <tr>
+        <td>{{ supp_order.get_orderID() }} </td>
+        <td>{{ supp_order.get_id() }}</td>
+        <td>{{ supp_order.get_name() }}</td>
+        <td>{{ supp_order.get_quantity() }}</td>
+        <td>{{ supp_order.get_del_by() }}</td>
+        <td>{{ supp_order.get_supp_id() }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
