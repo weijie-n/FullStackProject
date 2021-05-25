@@ -17,6 +17,11 @@ router.use("/auth", RouterAuth);
 import RouterFeedback from './feedback.mjs'
 router.use('/feedback', RouterFeedback)
 
+import RouterHealthD from './healthform.mjs'
+router.use("/healthdeclaration", RouterHealthD)
+
+import RouterOrder from './orders.mjs'
+router.use("/orders", RouterOrder)
 // ---------------- 
 //	TODO:	Common URL paths here
 router.get("/",      async function(req, res) {
@@ -47,3 +52,4 @@ router.get("/viewFeedback", async function(req, res) {
 		title: "Hello World"
 	});
 });
+
