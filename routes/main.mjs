@@ -17,7 +17,7 @@ router.use("/auth", RouterAuth);
 import RouterFeedback from './feedback.mjs'
 router.use('/feedback', RouterFeedback)
 
-import RouterProduct from './product.mjs'
+import RouterProduct from '../data/product.mjs'
 router.use('/product', RouterProduct)
 
 // ---------------- 

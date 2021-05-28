@@ -24,7 +24,7 @@ export class ModelProduct extends Model {
 	 * @param {Sequelize} database The configured Sequelize handle
 	**/
 	static initialize(database) {
-		ModelUser.init({
+		ModelProduct.init({
 			"uuid"       : { type: DataTypes.CHAR(36),    primaryKey: true, defaultValue: DataTypes.UUIDV4 },
 			"dateCreated": { type: DataTypes.DATE(),      allowNull: false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
 			"dateUpdated": { type: DataTypes.DATE(),      allowNull: false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
@@ -46,7 +46,7 @@ export class ModelProduct extends Model {
 	 * Emulates "TRIGGER" of "AFTER UPDATE" in most SQL databases.
 	 * This function simply assist to update the 'dateUpdated' timestamp.
 	 * @private
-	 * @param {ModelUser}     instance The entity model to be updated
+	 * @param {ModelProduct}     instance The entity model to be updated
 	 * @param {UpdateOptions} options  Additional options of update propagated from the initial call
 	**/
 	static _auto_update_timestamp(instance, options) {
