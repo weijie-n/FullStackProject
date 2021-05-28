@@ -1,8 +1,7 @@
-{% extends "staffBase.html" %}
-{% block title %}xhotel - Retrieve Products{% endblock %}
+{% extends "layouts/base.html" %}
 
-{% block content %}
-{% from "includes/_formHelper.html" import render_field %}
+
+{% block PageContent %}
 
   <table class="table table-striped">
     <thead>
@@ -70,8 +69,4 @@
 </tbody>
 </table>
 </div>
-{% endblock %}
-
-
-
-
+{% endblock PageContent %}
