@@ -20,6 +20,12 @@ router.use('/feedback', RouterFeedback)
 import RouterProduct from '../data/product.mjs'
 router.use('/product', RouterProduct)
 
+import RouterHealthD from './healthform.mjs'
+router.use("/healthdeclaration", RouterHealthD);
+
+import RouterOrder from './orders.mjs'
+router.use("/orders", RouterOrder);
+
 // ---------------- 
 //	TODO:	Common URL paths here
 router.get("/",      async function(req, res) {
