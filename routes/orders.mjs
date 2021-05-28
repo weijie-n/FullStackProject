@@ -2,13 +2,13 @@ import { Router } from 'express';
 const router = Router();
 export default router;
 
-router.get("/orders",      async function(req, res) {
-	console.log("Create order page accessed");
-	return res.render('orders/createOrders.html');
+router.get("/createOrders",      async function(req, res) {
+	console.log("Create Order page accessed");
+	return res.render('orders/createForm.html');
 });
 
-router.get("/vieworders",      async function(req, res) {
-	console.log("Orders page accessed");
-	return res.render('orders/viewOrder.html');
+router.get("/viewOrders",      async function(req, res) {
+	console.log("View Order page accessed");
+	return res.render('orders/retrieveForm.html');
 });
 
