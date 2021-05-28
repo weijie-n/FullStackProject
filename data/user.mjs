@@ -1,5 +1,3 @@
-
-// model (1)
 import ORM from 'sequelize'
 const { Sequelize, DataTypes, Model } = ORM;
 
@@ -16,7 +14,7 @@ export class UserRole {
  * This model is specifically designed for users
  * @see "https://sequelize.org/master/manual/model-basics.html#taking-advantage-of-models-being-classes"
 **/
-export class ModelProduct extends Model {
+export class ModelUser extends Model {
 	/**
 	 * Initializer of the model
 	 * @see Model.init
@@ -29,15 +27,15 @@ export class ModelProduct extends Model {
 			"dateCreated": { type: DataTypes.DATE(),      allowNull: false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
 			"dateUpdated": { type: DataTypes.DATE(),      allowNull: false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
 			"name"       : { type: DataTypes.STRING(64),  allowNull: false },
-			"price"      : { type: DataTypes.INT(128), allowNull: false },
-			"quantity"   : { type: DataTypes.INT(64),  allowNull: false },
-			"remarks"       : { type: DataTypes.ENUM(UserRole.User, UserRole.Admin), defaultValue: UserRole.User, allowNull: false },
+			"email"      : { type: DataTypes.STRING(128), allowNull: false },
+			"password"   : { type: DataTypes.STRING(64),  allowNull: false },
+			"role"       : { type: DataTypes.ENUM(UserRole.User, UserRole.Admin), defaultValue: UserRole.User, allowNull: false },
 			"verified"   : { type: DataTypes.BOOLEAN,     allowNull: false, defaultValue: false }
 		}, {
 			"sequelize": database,
-			"modelName": "Products",
+			"modelName": "Users",
 			"hooks"    : {
-				"afterUpdate": ModelProduct._auto_update_timestamp
+				"afterUpdate": ModelUser._auto_update_timestamp
 			}
 		});
 	}
