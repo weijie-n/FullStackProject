@@ -2,16 +2,8 @@ import ORM from 'sequelize'
 const { Sequelize, DataTypes, Model } = ORM;
 
 /**
- * For enumeration use
-**/
-// export class UserRole {
-// 	static get Admin() { return "admin"; }
-// 	static get User()  { return "user";  }
-// }
-
-/**
  * A database entity model that represents contents in the database.
- * This model is specifically designed for users
+ * This model is specifically designed for Feedback
  * @see "https://sequelize.org/master/manual/model-basics.html#taking-advantage-of-models-being-classes"
 **/
 export class ModelFeedback extends Model {
@@ -28,8 +20,8 @@ export class ModelFeedback extends Model {
 			"dateUpdated": { type: DataTypes.DATE(),      allowNull: false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
 			"name"       : { type: DataTypes.STRING(64),  allowNull: false },
 			"email"      : { type: DataTypes.STRING(128), allowNull: false },
-            "Rating"     : { type: DataTypes.INT(10),     allowNull: false, defaultValue: false },
-            "Comments"   : { type: DataTypes.STRING(255), allowNull: true},
+            "rating"     : { type: DataTypes.INTEGER,     allowNull: false, defaultValue: 0 },
+            "comments"   : { type: DataTypes.STRING(255), allowNull: true },
 		}, {
 			"sequelize": database,
 			"modelName": "Feedbacks",

@@ -17,8 +17,8 @@ router.use("/auth", RouterAuth);
 import RouterFeedback from './feedback.mjs'
 router.use('/feedback', RouterFeedback)
 
-import RouterProduct from '../data/product.mjs'
-router.use('/product', RouterProduct)
+// import RouterProduct from './product.mjs'
+// router.use('/product', RouterProduct)
 
 import RouterHealthD from './healthform.mjs'
 router.use("/healthdeclaration", RouterHealthD);

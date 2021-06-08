@@ -40,12 +40,15 @@ Server.use(MethodOverrides('_method'));
  * Express Session
  */
 Server.use(ExpSession({
-	name: 'example-app',
-	secret: 'random-secret',
-	resave: false,
-	saveUninitialized: false
+	name             : 'example-app',
+	secret           : 'random-secret',
+	resave           : false,
+	saveUninitialized: false,
+	store            : SessionStore
 }));
 
+
+initialize_database(false);
 
 //-----------------------------------------
 
@@ -67,6 +70,7 @@ Server.use("/", Routes);
  * Prints all the routes registered into the application
 **/
 import { ListRoutes } from './utils/routes.mjs'
+import { initialize_database, SessionStore } from './data/database.mjs';
 console.log(`=====Registered Routes=====`);
 ListRoutes(Server._router).forEach(route => {
 	console.log(`${route.method.padStart(8)} | /${route.path}`);

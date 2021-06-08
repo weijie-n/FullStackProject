@@ -1,6 +1,5 @@
 import Hash   from 'hash.js'
 import ORM    from 'sequelize';
-import { ModelFeedback } from './feedback.mjs';
 const { Sequelize } = ORM;
 
 import { ModelUser } from './user.mjs';
@@ -57,7 +56,6 @@ export function initialize_models(database) {
 		var account = await ModelUser.findOne({where: { "uuid": root_parameters.uuid }});
 		
 		account = await ((account) ? account.update(root_parameters): ModelUser.create(root_parameters));
-		
 		console.log("== Generated root account ==");
 		console.log(account.toJSON());
 		console.log("============================");

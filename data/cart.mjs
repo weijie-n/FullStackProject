@@ -11,7 +11,7 @@ const { Sequelize, DataTypes, Model } = ORM;
 
 /**
  * A database entity model that represents contents in the database.
- * This model is specifically designed for users
+ * This model is specifically designed for Carts
  * @see "https://sequelize.org/master/manual/model-basics.html#taking-advantage-of-models-being-classes"
 **/
 export class ModelCart extends Model {
@@ -26,9 +26,11 @@ export class ModelCart extends Model {
 			"uuid"       : { type: DataTypes.CHAR(36),    primaryKey: true, defaultValue: DataTypes.UUIDV4 },
 			"dateCreated": { type: DataTypes.DATE(),      allowNull: false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
 			"dateUpdated": { type: DataTypes.DATE(),      allowNull: false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
-			"name"       : { type: DataTypes.STRING(64),  allowNull: false },
-			"prod_name"  : { type: DataTypes.STRING(64),  allowNull: false },
-            "quantity"   : { type:DataTypes.INT(64),     allowNull: false, defaultValue: 1},
+			//	product id
+			//	user    id
+			// "name"       : { type: DataTypes.STRING(64),  allowNull: false },
+			// "prod_name"  : { type: DataTypes.STRING(64),  allowNull: false },
+            "quantity"   : { type:DataTypes.INTEGER,     allowNull: false, defaultValue: 1},
 		}, {
 			"sequelize": database,
 			"modelName": "Cart",
@@ -49,4 +51,6 @@ export class ModelCart extends Model {
 		// @ts-ignore
 		instance.dateUpdated = Sequelize.literal('CURRENT_TIMESTAMP');
 	}
+
+	
 }

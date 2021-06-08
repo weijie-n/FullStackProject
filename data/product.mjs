@@ -3,17 +3,10 @@
 import ORM from 'sequelize'
 const { Sequelize, DataTypes, Model } = ORM;
 
-/**
- * For enumeration use
-**/
-export class UserRole {
-	static get Admin() { return "admin"; }
-	static get User()  { return "user";  }
-}
 
 /**
  * A database entity model that represents contents in the database.
- * This model is specifically designed for users
+ * This model is specifically designed for products
  * @see "https://sequelize.org/master/manual/model-basics.html#taking-advantage-of-models-being-classes"
 **/
 export class ModelProduct extends Model {
@@ -29,10 +22,10 @@ export class ModelProduct extends Model {
 			"dateCreated": { type: DataTypes.DATE(),      allowNull: false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
 			"dateUpdated": { type: DataTypes.DATE(),      allowNull: false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
 			"name"       : { type: DataTypes.STRING(64),  allowNull: false },
-			"price"      : { type: DataTypes.INT(128), allowNull: false },
-			"quantity"   : { type: DataTypes.INT(64),  allowNull: false },
-			"remarks"       : { type: DataTypes.ENUM(UserRole.User, UserRole.Admin), defaultValue: UserRole.User, allowNull: false },
-			"verified"   : { type: DataTypes.BOOLEAN,     allowNull: false, defaultValue: false }
+			"price"      : { type: DataTypes.INTEGER,     allowNull: false },
+			"quantity"   : { type: DataTypes.INTEGER,     allowNull: false },
+			"remarks"    : { type: DataTypes.STRING(1024), defaultValue: "", allowNull: false },
+			"resImgUrl"  : { type: DataTypes.STRING(1024),  allowNull: false, defaultValue: "/public/img/null.png" }
 		}, {
 			"sequelize": database,
 			"modelName": "Products",

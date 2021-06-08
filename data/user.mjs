@@ -51,4 +51,15 @@ export class ModelUser extends Model {
 		// @ts-ignore
 		instance.dateUpdated = Sequelize.literal('CURRENT_TIMESTAMP');
 	}
+
+	get uuid() { return String(this.getDataValue("uuid")); }
+	set uuid(value) { this.setDataValue("uuid", value); }
+
+	get dateCreated() { return new Date(this.getDataValue("dateCreated")); }
+
+
+	// update_profile_picture(new_password) {
+	// 	//	TODO: Delete the old one
+	// 	//	Set the column to new
+	// }
 }
