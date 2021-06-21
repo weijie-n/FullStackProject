@@ -1,4 +1,5 @@
 import ORM from 'sequelize'
+import { ModelProduct } from './product.mjs';
 const { Sequelize, DataTypes, Model } = ORM;
 
 /**
@@ -15,14 +16,13 @@ export class ModelOrders extends Model {
 	**/
 	static initialize(database) {
 		ModelOrders.init({
-			"uuid"       : { type: DataTypes.CHAR(36),    primaryKey: true, defaultValue : DataTypes.UUIDV4 },
-			"dateCreated": { type: DataTypes.DATE(),      allowNull : false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
-			"dateUpdated": { type: DataTypes.DATE(),      allowNull : false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
-			"prodid"     : { type: DataTypes.STRING(64),  allowNull : false },
-			"prodname"   : { type: DataTypes.STRING(128), allowNull : false },
-			"quantity"   : { type: DataTypes.STRING(64),  allowNull : false },
-			"deliveredby": { type: DataTypes.DATE(),      allowNull : false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
-			"suppid"     : { type: DataTypes.STRING(64),  allowNull : false }
+			"uuid"         : { type: DataTypes.CHAR(36),   primaryKey: true, defaultValue : DataTypes.UUIDV4 },
+			"dateCreated"  : { type: DataTypes.DATE(),     allowNull: false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
+			"dateUpdated"  : { type: DataTypes.DATE(),     allowNull: false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
+			"dateDelivered": { type: DataTypes.DATE(),     allowNull: false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
+			"uuid_product" : { type: DataTypes.CHAR(36),   allowNull: false },
+			"quantity"     : { type: DataTypes.STRING(64), allowNull: false },
+			"suppid"       : { type: DataTypes.STRING(64), allowNull: false }
 		}, {
 			"sequelize": database,
 			"modelName": "Orders",

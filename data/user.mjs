@@ -52,14 +52,23 @@ export class ModelUser extends Model {
 		instance.dateUpdated = Sequelize.literal('CURRENT_TIMESTAMP');
 	}
 
-	get uuid() { return String(this.getDataValue("uuid")); }
-	set uuid(value) { this.setDataValue("uuid", value); }
-
+	/** The role of the user */
+	get role()  { return String(this.getDataValue("role")); }
+	/** The universally unique identifier of the user */
+	get uuid()  { return String(this.getDataValue("uuid")); }
+	/** The email of the user */
+	get email() { return String(this.getDataValue("email")); }
+	/** The name of the user */
+	get name()  { return String(this.getDataValue("name")); }
+	/** The date this user is created in database */
 	get dateCreated() { return new Date(this.getDataValue("dateCreated")); }
+	/** The date this user is updated in database */
+	get dateUpdated() { return new Date(this.getDataValue("dateUpdated")); }
+	/** Whether this user instance is verified */
+	get isVerified()  { return Boolean(this.getDataValue("verified")); }
 
 
-	// update_profile_picture(new_password) {
-	// 	//	TODO: Delete the old one
-	// 	//	Set the column to new
-	// }
+	set uuid(uuid)     { this.setDataValue("uuid", uuid); }
+	set email(email)   { this.setDataValue("email", email); }
+	set name(name)     { this.setDataValue("name", name); }
 }

@@ -20,8 +20,8 @@ export class ModelFeedback extends Model {
 			"dateUpdated": { type: DataTypes.DATE(),      allowNull: false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
 			"name"       : { type: DataTypes.STRING(64),  allowNull: false },
 			"email"      : { type: DataTypes.STRING(128), allowNull: false },
-            "rating"     : { type: DataTypes.INTEGER,     allowNull: false, defaultValue: 0 },
-            "comments"   : { type: DataTypes.STRING(255), allowNull: true },
+			"rating"     : { type: DataTypes.INTEGER,     allowNull: false, defaultValue: 0 },
+			"comments"   : { type: DataTypes.STRING(256), allowNull: true },
 		}, {
 			"sequelize": database,
 			"modelName": "Feedbacks",

@@ -9,7 +9,7 @@ import {initialize_models } from './models.mjs';
  * Database configuration
  */
 const Config = {
-	database: 'itp211',
+	database: 'it2004-g4',
 	username: 'itp211',
 	password: 'itp211',
 	host    : 'localhost',
@@ -41,7 +41,7 @@ export const Database = new Sequelize(
 	port:     Config.port,
 	host:     Config.host,      // Name or IP address of MySQL server
 	dialect: 'mysql',           // Tells sequelize that MySQL is used
-	operatorsAliases: false,
+	operatorsAliases: 0,
 	define: {
 		timestamps: false       // Don't create timestamp fields in database
 	},

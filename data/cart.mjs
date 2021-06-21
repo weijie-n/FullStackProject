@@ -2,14 +2,6 @@ import ORM from 'sequelize'
 const { Sequelize, DataTypes, Model } = ORM;
 
 /**
- * For enumeration use
-**/
-// export class UserRole {
-// 	static get Admin() { return "admin"; }
-// 	static get User()  { return "user";  }
-// }
-
-/**
  * A database entity model that represents contents in the database.
  * This model is specifically designed for Carts
  * @see "https://sequelize.org/master/manual/model-basics.html#taking-advantage-of-models-being-classes"
@@ -23,17 +15,14 @@ export class ModelCart extends Model {
 	**/
 	static initialize(database) {
 		ModelCart.init({
-			"uuid"       : { type: DataTypes.CHAR(36),    primaryKey: true, defaultValue: DataTypes.UUIDV4 },
-			"dateCreated": { type: DataTypes.DATE(),      allowNull: false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
-			"dateUpdated": { type: DataTypes.DATE(),      allowNull: false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
-			//	product id
-			//	user    id
-			// "name"       : { type: DataTypes.STRING(64),  allowNull: false },
-			// "prod_name"  : { type: DataTypes.STRING(64),  allowNull: false },
-            "quantity"   : { type:DataTypes.INTEGER,     allowNull: false, defaultValue: 1},
+			"uuid_user"   : { type: DataTypes.CHAR(36),    primaryKey: true },
+			"uuid_product": { type: DataTypes.CHAR(36),    primaryKey: true },
+			"dateCreated" : { type: DataTypes.DATE(),      allowNull: false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
+			"dateUpdated" : { type: DataTypes.DATE(),      allowNull: false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
+			"quantity"    : { type:DataTypes.INTEGER,      allowNull: false, defaultValue: 1},
 		}, {
 			"sequelize": database,
-			"modelName": "Cart",
+			"modelName": "Carts",
 			"hooks"    : {
 				"afterUpdate": ModelCart._auto_update_timestamp
 			}
@@ -52,5 +41,8 @@ export class ModelCart extends Model {
 		instance.dateUpdated = Sequelize.literal('CURRENT_TIMESTAMP');
 	}
 
-	
+	get quantity() { return Number(this.getDataValue("quantity")); }
+	set quantity(value) { this.setDataValue("quantity", value); }
+	add() { this.quantity += 1; }
+	del() { this.quantity -= 0; }
 }
