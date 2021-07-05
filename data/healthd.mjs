@@ -14,7 +14,7 @@ export class UserRole {
  * This model is specifically designed for users
  * @see "https://sequelize.org/master/manual/model-basics.html#taking-advantage-of-models-being-classes"
 **/
-export class ModelUser extends Model {
+export class ModelHealthD extends Model {
 	/**
 	 * Initializer of the model
 	 * @see Model.init
@@ -22,7 +22,7 @@ export class ModelUser extends Model {
 	 * @param {Sequelize} database The configured Sequelize handle
 	**/
 	static initialize(database) {
-		ModelUser.init({
+		ModelHealthD.init({
 			"uuid"       : { type: DataTypes.CHAR(36),    primaryKey: true, defaultValue: DataTypes.UUIDV4 },
 			"dateCreated": { type: DataTypes.DATE(),      allowNull: false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
 			"dateUpdated": { type: DataTypes.DATE(),      allowNull: false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
@@ -34,9 +34,9 @@ export class ModelUser extends Model {
             "Q4"   : { type: DataTypes.BOOLEAN,     allowNull: false, defaultValue: false }
 		}, {
 			"sequelize": database,
-			"modelName": "Users",
+			"modelName": "Health Declaration",
 			"hooks"    : {
-				"afterUpdate": ModelUser._auto_update_timestamp
+				"afterUpdate": ModelHealthD._auto_update_timestamp
 			}
 		});
 	}
@@ -45,7 +45,7 @@ export class ModelUser extends Model {
 	 * Emulates "TRIGGER" of "AFTER UPDATE" in most SQL databases.
 	 * This function simply assist to update the 'dateUpdated' timestamp.
 	 * @private
-	 * @param {ModelUser}     instance The entity model to be updated
+	 * @param {ModelHealthD}     instance The entity model to be updated
 	 * @param {UpdateOptions} options  Additional options of update propagated from the initial call
 	**/
 	static _auto_update_timestamp(instance, options) {
