@@ -23,19 +23,17 @@ export class ModelCart extends Model {
 	**/
 	static initialize(database) {
 		ModelCart.init({
-			"uuid"       : { type: DataTypes.CHAR(36),    primaryKey: true, defaultValue: DataTypes.UUIDV4 },
-			"dateCreated": { type: DataTypes.DATE(),      allowNull: false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
-			"dateUpdated": { type: DataTypes.DATE(),      allowNull: false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
-			//	product id
-			//	user    id
-			// "name"       : { type: DataTypes.STRING(64),  allowNull: false },
-			// "prod_name"  : { type: DataTypes.STRING(64),  allowNull: false },
+			"uuid_product"       : { type: DataTypes.CHAR(36),    primaryKey: true, defaultValue: DataTypes.UUIDV4 },
+			"uuid_user":    { type: DataTypes.CHAR(36), primaryKey: true, allowNull: false  },
             "quantity"   : { type:DataTypes.INTEGER,     allowNull: false, defaultValue: 1},
 		}, {
 			"sequelize": database,
 			"modelName": "Cart",
 			"hooks"    : {
-				"afterUpdate": ModelCart._auto_update_timestamp
+				"afterUpdate": ModelCart._auto_update_timestamp,
+				"afterUpdate":     ModelCart.remove_if_zero,
+				"afterBulkUpdate": ModelCart.remove_if_zero_bulk,
+
 			}
 		});
 	}
@@ -51,6 +49,36 @@ export class ModelCart extends Model {
 		// @ts-ignore
 		instance.dateUpdated = Sequelize.literal('CURRENT_TIMESTAMP');
 	}
+	/**
+	 * Emulates "TRIGGER" of "AFTER UPDATE" in most SQL databases.
+	 * This function simply deletes the pair if qty is zero
+	 * @private
+	 * @param {ModelCart}     instance The entity model to be updated
+	 * @param {UpdateOptions} options  Additional options of update propagated from the initial call
+	**/
+	static remove_if_zero(instance, options) {
+		if (instance.qty == 0)
+			instance.destroy();
+	}
+	/**
+	 * Emulates "TRIGGER" of "AFTER UPDATE" in most SQL databases.
+	 * This function simply deletes all pairs if qty is zero
+	 * @private
+	 * @param {UpdateOptions} options  Additional options of update propagated from the initial call
+	**/
+	static async remove_if_zero_bulk(options) {
+		await ModelCart.destroy({where: {qty: 0}});
+	}
+
+	/** The universally unique identifier of the user */
+	get uuid_product() { return String(this.getDataValue("uuid_product")); }
+	get uuid_user()    { return String(this.getDataValue("uuid_user")); }
+	get qty() { return Number(this.getDataValue("qty")); }
+
+	set uuid_product(uuid) { this.setDataValue("uuid_product", uuid); }
+	set uuid_user(uuid)    { this.setDataValue("uuid_user", uuid); }
+	set qty(value) { this.setDataValue("qty", value); }
+
 
 	
 }

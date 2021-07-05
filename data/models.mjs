@@ -22,11 +22,19 @@ export function initialize_models(database) {
 		console.log("Building ORM model relations and indices");
 		//	Create relations between models or tables
 		//	Setup foreign keys, indexes etc
-	
+
+		//	Check foregin key in your database after writing all these stuff
+		ModelUser   .belongsToMany(ModelProduct, { through: ModelCart, foreignKey: "uuid_user" });
+		ModelProduct.belongsToMany(ModelUser,    { through: ModelCart, foreignKey: "uuid_product" });
+
 		console.log("Adding intitialization hooks");
 		//	Run once hooks during initialization
 		database.addHook("afterBulkSync", generate_root_account.name,  generate_root_account.bind(this, database));
+		database.addHook("afterBulkSync", generate_dummy_accounts.name,  generate_dummy_accounts.bind(this, database));
+		database.addHook("afterBulkSync", generate_dummy_products.name,  generate_dummy_products.bind(this, database));
+
 	}
+
 	catch (error) {
 		console.error ("Failed to configure ORM models");
 		console.error (error);
@@ -38,7 +46,7 @@ export function initialize_models(database) {
  * @param {Sequelize} database Database ORM handle
  * @param {SyncOptions} options Synchronization options, not used
  */
- async function generate_root_account(database, options) {
+async function generate_root_account(database, options) {
 	//	Remove this callback to ensure it runs only once
 	database.removeHook("afterBulkSync", generate_root_account.name);
 	//	Create a root user if not exists otherwise update it
