@@ -12,4 +12,3 @@ router.get("/register", async function(req, res) {
 	return res.render('auth/register.html');
 })
 
-fuck
