@@ -8,6 +8,8 @@ import BodyParser from 'body-parser';
 import CookieParser from 'cookie-parser';
 import MethodOverrides from 'method-override';
 import Path from 'path';
+import Flash from 'connect-flash';
+import FlashMessenger from 'flash-messenger';
 
 import Nunjucks from 'nunjucks';
 
@@ -40,11 +42,11 @@ Server.use(MethodOverrides('_method'));
  * Express Session
  */
 Server.use(ExpSession({
-	name             : 'example-app',
-	secret           : 'random-secret',
-	resave           : false,
+	name: 'example-app',
+	secret: 'random-secret',
+	resave: false,
 	saveUninitialized: false,
-	store            : SessionStore
+	store: SessionStore
 }));
 
 
