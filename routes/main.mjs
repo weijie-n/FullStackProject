@@ -20,8 +20,8 @@ router.use('/feedback', RouterFeedback)
 import RouterInvoice from './invoice.mjs'
 router.use('/invoice', RouterInvoice)
 
-// import RouterProduct from './product.mjs'
-// router.use('/product', RouterProduct)
+import RouterProduct from './product.mjs'
+router.use('/product', RouterProduct)
 
 import RouterHealthD from './healthform.mjs'
 router.use("/healthdeclaration", RouterHealthD);

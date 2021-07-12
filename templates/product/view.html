@@ -1,0 +1,112 @@
+{% extends "layouts/base.html" %}
+{% block title %}xhotel - Retrieve Products{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+{% if 'product_created' in session %}
+<div class="alert alert-success alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{ session.pop('product_created', None) }} was created.
+</div>
+{% elif 'product_updated' in session %}
+<div class="alert alert-warning alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{ session.pop('product_updated', None) }} was updated.
+</div>
+{% elif 'product_deleted' in session %}
+<div class="alert alert-danger alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{ session.pop('product_deleted', None) }} was deleted.
+</div>
+{% endif %}
+<div>
+<h1 class="display-4">Menu (staff view)</h1>
+<br>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Sort By
+        </a>
+        <div class="dropdown-menu">
+        <a class="dropdown-item" href="/products/sortBy/low_to_high">Quantity: low to high</a>
+        <a class="dropdown-item" href="/products/sortBy/high_to_low">Quantity: high to low</a>
+
+        </div>
+      </li>
+    </ul>
+  </div>
+  </nav>
+<br>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th></th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Status</th>
+        <th>Price</th>
+        <th>Remarks</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for product in products_list %}
+      <tr>
+        <td><img src ="{{url_for('static', filename='img/'+product.get_file())}}" alt="Product Image" width = 15%></td>
+        <td>{{ product.get_id() }}</td>
+        <td>{{ product.get_name() }}</td>
+        <td>{{ product.get_quantity() }}</td>
+        {% if product.get_quantity() < 10 %}
+        <td><span style="color:red">LOW</span></td>
+        {% else %}
+        <td>NORMAL</td>
+        {% endif %}
+        <td>{{ product.get_price() }}</td>
+        <td>{{ product.get_remarks() }}</td>
+        <td><a href="/updateProducts/{{product.get_id()}}" class="btn btn-warning">Update</a></td>
+        <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal_{{product.get_id()}}">
+            Delete
+          </button></td>
+
+    <!-- The Modal -->
+    <div class="modal" id="myModal_{{product.get_id()}}">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Delete Confirmation</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            Are you sure you want to delete {{product.get_name()}}?
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <form action="{{url_for('delete_product', id=product.get_id())}}" method="POST">
+
+            <input type="submit" value="Delete" class="btn btn-danger">
+            </form>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+{% endblock %}
+
+
+
