@@ -16,10 +16,11 @@ const regexName = /^[a-zA-Z][a-zA-Z]{2,}$/;
 const regexPwd = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
 
-router.get("/login", login_page);
-router.post("/login", login_process);
-router.get("/register", register_page);
-router.get("/register", register_process);
+router.get("/login",     login_page);
+router.post("/login",    login_process);
+router.get("/register",  register_page);
+router.post("/register", register_process);
+router.get("/logout",    logout_process);
 
 /**
  * Renders the login page
@@ -28,7 +29,7 @@ router.get("/register", register_process);
  */
 async function login_page(req, res) {
 	console.log("Login page accessed");
-	return res.render('auth/login');
+	return res.render('auth/login.html');
 }
 
 /**
@@ -38,13 +39,13 @@ async function login_page(req, res) {
  */
 async function register_page(req, res) {
 	console.log("Register page accessed");
-	return res.render('auth/register');
+	return res.render('auth/register.html');
 }
 
 /**
  * Process the login form body
- * @param {Request}  req Express Request handle
- * @param {Response} res Express Response handle
+ * @param {import('express').Request}  req Express Request handle
+ * @param {import('express').Response} res Express Response handle
  */
 async function login_process(req, res) {
 	console.log("login contents received");
@@ -70,7 +71,7 @@ async function login_process(req, res) {
 	catch (error) {
 		console.error("There is errors with the login form body.");
 		console.error(error);
-		return res.render('auth/login', { errors: errors });
+		return res.render('auth/login.html', { errors: errors });
 	}
 
 	try {
@@ -91,13 +92,14 @@ async function login_process(req, res) {
 		}
 		else {
 			flashMessage(res, 'success', 'Successfully login!', 'fas fa-sign-in-alt', true);
+			req.login(user, () => {});
 			return res.redirect("/home");
 		}
 	}
 	catch (error) {
 		console.error(`Credentials problem: ${req.body.email} ${req.body.password}`);
 		console.error(error);
-		return res.render('auth/login', { errors: errors });
+		return res.render('auth/login.html', { errors: errors });
 	}
 }
 
@@ -142,7 +144,7 @@ async function register_process(req, res) {
 	catch (error) {
 		console.error("There is errors with the registration form body.");
 		console.error(error);
-		return res.render('auth/register', { errors: errors });
+		return res.render('auth/register.html', { errors: errors });
 	}
 
 	//	Create new user, now that all the test above passed
@@ -162,4 +164,14 @@ async function register_process(req, res) {
 		console.error(error);
 		return res.status(500).end();
 	}
+}
+
+/**
+ * Process the registration form body
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res Express Response handle
+ */
+ async function logout_process(req, res) {
+	req.logOut();
+	return res.redirect("/home");
 }
