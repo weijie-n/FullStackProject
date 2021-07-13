@@ -9,6 +9,9 @@ import CookieParser from 'cookie-parser';
 import MethodOverrides from 'method-override';
 import Path from 'path';
 
+import Flash           from 'connect-flash';
+import FlashMessenger  from 'flash-messenger';
+
 import Nunjucks from 'nunjucks';
 
 const Server = Express();
@@ -50,6 +53,11 @@ Server.use(ExpSession({
 
 initialize_database(false);
 
+/**
+ * Flash Messenger (OPTIONAL)
+ */
+Server.use(Flash());
+Server.use(FlashMessenger.middleware);
 //-----------------------------------------
 
 /**
