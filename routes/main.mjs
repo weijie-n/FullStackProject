@@ -34,18 +34,18 @@ import RouterAdmin from './admin/admin.mjs';
 router.use("/admin", ensure_login, ensure_admin, RouterAdmin);
 
 //	For Logged in only
-import RouterUser from './user.mjs';
-router.use("/user",  ensure_login, RouterUser);
+import RouterUser from './user/user.mjs';
+router.use("/user", ensure_login, RouterUser);
 
 //	Any tom dick and harry
 import RouterFeedback from './feedback.mjs';
 router.use('/feedback', RouterFeedback);
 
 import RouterInvoice from './invoice.mjs';
-router.use('/invoice',  RouterInvoice)
+router.use('/invoice', RouterInvoice)
 
 import RouterProduct from './product.mjs';
-router.use('/product',  RouterProduct)
+router.use('/product', RouterProduct)
 
 import RouterHealthD from './healthform.mjs';
 router.use("/healthdeclaration", RouterHealthD);
