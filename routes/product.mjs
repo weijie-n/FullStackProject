@@ -16,16 +16,12 @@ async function product_page (req, res) {
 	return res.render('product/create.html');
 }
 
-/*
-
-router.get("/view",      async function(req, res) {
-	console.log("Viewing product page accessed");
-	return res.render('product/view.html');
-});
-
-router.get("/update",      async function(req, res) {
-	console.log("Updating product page accessed");
-	return res.render('product/update.html');
-});
-
-*/
+/**
+* Process the login form body
+ * @param {import('express').Request}  req Express Request handle
+ * @param {import('express').Response} res Express Response handle
+ */
+async function product_process(req, res) {
+	console.log("product contents received");
+	console.log(req.body);
+}
