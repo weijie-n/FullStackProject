@@ -23,14 +23,14 @@ export class ModelCart extends Model {
 	**/
 	static initialize(database) {
 		ModelCart.init({
-			"uuid_product"       : { type: DataTypes.CHAR(36),    primaryKey: true, defaultValue: DataTypes.UUIDV4 },
+			"uuid_product"       : { type: DataTypes.CHAR(36),    primaryKey: true, allowNull: false },
 			"uuid_user":    { type: DataTypes.CHAR(36), primaryKey: true, allowNull: false  },
             "quantity"   : { type:DataTypes.INTEGER,     allowNull: false, defaultValue: 1},
 		}, {
 			"sequelize": database,
 			"modelName": "Cart",
 			"hooks"    : {
-				"afterUpdate": ModelCart._auto_update_timestamp,
+				"afterUpdate":     ModelCart._auto_update_timestamp,
 				"afterUpdate":     ModelCart.remove_if_zero,
 				"afterBulkUpdate": ModelCart.remove_if_zero_bulk,
 

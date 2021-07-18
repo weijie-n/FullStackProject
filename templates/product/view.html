@@ -1,8 +1,45 @@
 {% extends "layouts/base.html" %}
+{% block title %}xhotel - Retrieve Products{% endblock %}
 
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+{% if 'product_created' in session %}
+<div class="alert alert-success alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{ session.pop('product_created', None) }} was created.
+</div>
+{% elif 'product_updated' in session %}
+<div class="alert alert-warning alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{ session.pop('product_updated', None) }} was updated.
+</div>
+{% elif 'product_deleted' in session %}
+<div class="alert alert-danger alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{ session.pop('product_deleted', None) }} was deleted.
+</div>
+{% endif %}
+<div>
+<h1 class="display-4">Menu (staff view)</h1>
+<br>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-{% block PageContent %}
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Sort By
+        </a>
+        <div class="dropdown-menu">
+        <a class="dropdown-item" href="/products/sortBy/low_to_high">Quantity: low to high</a>
+        <a class="dropdown-item" href="/products/sortBy/high_to_low">Quantity: high to low</a>
 
+        </div>
+      </li>
+    </ul>
+  </div>
+  </nav>
+<br>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -69,4 +106,7 @@
 </tbody>
 </table>
 </div>
-{% endblock PageContent %}
+{% endblock %}
+
+
+

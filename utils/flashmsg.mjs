@@ -6,7 +6,7 @@
  * @param icon {string}
  * @param dismissable {boolean} Set true to get the 'x' to close
  */
- export function flashMessage(res, messageType, message, icon, dismissable) {
+export function flashMessage(res, messageType, message, icon, dismissable) {
     let alert;
     switch (messageType) {
         case 'success':

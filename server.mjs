@@ -31,6 +31,8 @@ Nunjucks.configure('templates', {
 //	Sets `/public` to be the virtual path to access static files
 Server.use("/public", Express.static('public'));
 
+
+
 /**
  * Form body parsers etc
  */
@@ -39,18 +41,23 @@ Server.use(BodyParser.json());
 Server.use(CookieParser());
 Server.use(MethodOverrides('_method'));
 
+
+
 /**
  * Express Session
  */
 Server.use(ExpSession({
-	name             : 'example-app',
-	secret           : 'random-secret',
-	resave           : false,
+	name: 'example-app',
+	secret: 'random-secret',
+	resave: false,
 	saveUninitialized: false,
-	store            : SessionStore
+	store: SessionStore
 }));
 
-
+//	TODO: Copy from gitlab
+//initialize_passport(Passport);
+Server.use(Passport.initialize());
+Server.use(Passport.session());
 initialize_database(false);
 
 /**
@@ -60,6 +67,8 @@ Server.use(Flash());
 Server.use(FlashMessenger.middleware);
 //-----------------------------------------
 
+Server.use(Flash());
+Server.use(FlashMessenger.middleware);
 /**
  * TODO: Setup global contexts here. Basically stuff your variables in locals
  */

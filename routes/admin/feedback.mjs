@@ -2,12 +2,13 @@ import { Router } from 'express';
 const router = Router();
 export default router;
 
-
-
-///	After request
-
 //	HOME PAGE of Feedback
 router.get("/", async function(req, res) {
+	return res.redirect("/admin/feedback/list");
+});
+
+
+router.get("/list", async function(req, res) {
 	console.log("Feedback page accessed");
 	return res.render('feedback/feedback.html', {
 		title: "Hello World"
