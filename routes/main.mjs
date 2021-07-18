@@ -53,6 +53,9 @@ router.use("/healthdeclaration", RouterHealthD);
 import RouterOrder from './orders.mjs';
 router.use("/orders", RouterOrder);
 
+import RouterCart from './cart.mjs'
+router.use("/cart", RouterCart)
+
 // ---------------- 
 //	TODO:	Common URL paths here
 router.get("/", async function (req, res) {

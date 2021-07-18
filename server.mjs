@@ -55,9 +55,10 @@ Server.use(ExpSession({
 }));
 
 //	TODO: Copy from gitlab
-//initialize_passport(Passport);
-Server.use(Passport.initialize());
-Server.use(Passport.session());
+import { initialize_passport } from './utils/passport.mjs';//initialize_passport(Passport);
+initialize_passport(Server);
+// Server.use(Passport.initialize());
+// Server.use(Passport.session());
 initialize_database(false);
 
 /**
