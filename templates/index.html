@@ -32,9 +32,35 @@ h1, h2, h3, h4, h5, h6 {
 
 <!-- Contact Section -->
 <div class="w3-container w3-padding-50" id="contact">
-  <h1>Contact Us</h1><br>
+  <h1>Contact Us</h1>
+  <br>
+  <form method = "post" action="/contactUs">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="name" name="name" class="form-control" value="{{name}}" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" name="email" class="form-control" value="{{email}}" required>
+    </div>
+    <div class="form-group">
+      <label for="number">Phone Number</label>
+      <input type="number" name="number" class="form-control" value="{{number}}">
+    </div>
+    <div id="prof">
+      <div class="form-group">
+        <label for="remarks">Comment</label>
+        <input type="text" name="comment" class="form-control" value="{{Comment}}" required>
+      </div>
+    </div>
+    <input type="submit" value="Submit" class="btn btn-primary"/>
+  </form>
+  <br>
+  <h5>You can also contact us by phone 6234 5678 or email catering@xhotel.com</h5>
+  <br>
+    <h1>Locate Us</h1>
   <h5 class="w3-text-blue-grey w3-large"><b>X Hotel, 42 Orchard St, 43043 Singapore</b></h5>
-    <h5>You can also contact us by phone 6234 5678 or email catering@xhotel.com</h5>
+  <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15955.117981228334!2d103.8286111!3d1.3075!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x2dd9483a55dcece2!2sOrchard%20Hotel%20Singapore!5e0!3m2!1sen!2ssg!4v1626696214957!5m2!1sen!2ssg" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
 </div>
 
 {% endblock PageContent %}
