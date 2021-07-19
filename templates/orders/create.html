@@ -1,7 +1,3 @@
-{% extends "layouts/base.html" %}
-{% block title %}xhotel - Create Form{% endblock %}
-
-{% block PageContent %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -139,8 +135,7 @@
           <input class="OrderID" type="text" name="name" placeholder="Order ID">
           <input class="ProductID" type="text" name="name" placeholder="Product ID">
           <input class="fname" type="text" name="name" placeholder="Product Name">
-          <input type="integer" name="name" placeholder="Quantity">
-          <input type="text" name="name" placeholder="Delivered by">
+          <input class="quantity" type="integer" name="name" placeholder="Quantity">
           <select>
             <option value="text" disabled selected>Supplier</option>
             <option value="N">NTUC</option>
@@ -160,13 +155,14 @@
             <option value="6">6:00pm</option>
             <option value="7">7:00pm</option>
           </select>
-        </div>
-        <h3>Delivery Metod</h3>
-        <div class="metod">
-          <div> 
-            <input type="radio" value="none" id="radioOne" name="metod" checked/>
-            <label for="radioOne" class="radio">For pick up</label>
+          <div class="item">
+            <p>Delivered by</p>
+            <input type="date" name="bdate" required/>
+            <i class="fas fa-calendar-alt"></i>
           </div>
+        </div>
+        <h3>Delivery Method</h3>
+        <div class="metod">
           <div>
             <input type="radio" value="none" id="radioTwo" name="metod" />
             <label for="radioTwo" class="radio">For delivery</label>
@@ -177,4 +173,3 @@
     </div>
   </body>
 </html>
-{% endblock PageContent %}
