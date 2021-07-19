@@ -3,7 +3,7 @@
         <div class="container">
 
     <!-- Brand -->
-    <a class="navbar-brand" href="/">World's First Class - X Hotel</a>
+    <a class="navbar-brand" href="/">World's First Class - Orchard Hotel</a>
   
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
 				  aria-expanded="false"
@@ -25,7 +25,7 @@
           <a class="dropdown-item" href="/product/view">View Menu</a>
           <a class="dropdown-item" href="/product/create">Create Menu</a>
           <a class="dropdown-item" href="/">Low quantity product list</a>
-          <a class="dropdown-item" href="/orders/createOrders">Create Orders</a>
+          <a class="dropdown-item" href="/orders/create">Create Orders</a>
           <a class="dropdown-item" href="/orders/viewFeedback">View Orders</a>
           <a class="dropdown-item" href="/">Search for product</a>
           <a class="dropdown-item" href="/">Search for supplier</a>
@@ -33,15 +33,6 @@
       </li>
   
       <!-- Dropdown -->
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-          HD Form
-        </a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="/healthform/createForm">Create HD Form</a>
-          <a class="dropdown-item" href="/healthform/retrieveForm">Retrieve HD Form</a>
-        </div>
-      </li>
   
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
@@ -60,11 +51,8 @@
             <a class="dropdown-item" href="/feedback/viewFeedback">View Feedback</a>
         </div>
     </li>
-
-    <li class="nav-item">
-        <a class="nav-link" href="/">Contact us</a>
-    </li>
 </ul>
+
 <ul class="navbar-nav ml-auto">
     {% if user %}
     <li class="nav-item dropdown">
