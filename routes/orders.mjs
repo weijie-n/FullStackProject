@@ -13,7 +13,7 @@ router.post("/create",    orders_process);
 
 async function orders_page (req, res) {
 	console.log("Orders page accessed");
-	return res.render('orders/create.html');np
+	return res.render('orders/create.html');
 }
 
 /**
