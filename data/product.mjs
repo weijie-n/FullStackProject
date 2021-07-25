@@ -46,4 +46,5 @@ export class ModelProduct extends Model {
 		// @ts-ignore
 		instance.dateUpdated = Sequelize.literal('CURRENT_TIMESTAMP');
 	}
+	get dateCreated() { return new Date(this.getDataValue("dateCreated")); }
 }

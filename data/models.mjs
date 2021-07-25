@@ -30,8 +30,8 @@ export function initialize_models(database) {
 		console.log("Adding intitialization hooks");
 		//	Run once hooks during initialization
 		database.addHook("afterBulkSync", generate_root_account.name,  generate_root_account.bind(this, database));
-		database.addHook("afterBulkSync", generate_dummy_accounts.name,  generate_dummy_accounts.bind(this, database));
-		database.addHook("afterBulkSync", generate_dummy_products.name,  generate_dummy_products.bind(this, database));
+		//database.addHook("afterBulkSync", generate_dummy_accounts.name,  generate_dummy_accounts.bind(this, database));
+		database.addHook("afterBulkSync", generate_dummy_product.name,  generate_dummy_product.bind(this, database));
 
 	}
 
@@ -71,6 +71,35 @@ async function generate_root_account(database, options) {
 	}
 	catch (error) {
 		console.error ("Failed to generate root administrator user account");
+		console.error (error);
+		return Promise.reject(error);
+	}
+}
+async function generate_dummy_product(database, options) {
+	//	Remove this callback to ensure it runs only once
+	database.removeHook("afterBulkSync", generate_dummy_product.name);
+	//	Create a root user if not exists otherwise update it
+	try {
+		console.log("Generating Dummy Product");
+		const root_parameters = {	
+			uuid        : "00000000-0000-0000-0000-000000000001",
+			name        : "Testing Product",
+			price       : 2,
+			quantity    : 1,
+			remarks     : 'Testing',
+			resImgUrl   : 'https://www.google.com/url?sa=i&url=https%3A%2F%2Ftasty.co%2Frecipe%2Fhainanese-chicken-rice&psig=AOvVaw0uUmWzdBR1-65N-CiHoDis&ust=1627293024811000&source=images&cd=vfe&ved=0CAoQjRxqFwoTCMDQ9Yj5_fECFQAAAAAdAAAAABAD'
+		};
+		//	Find for existing CART with the same id, create or update
+		var product = await ModelProduct.findOne({where: { "uuid": root_parameters.uuid }});
+		
+		product = await ((product) ? product.update(root_parameters): ModelProduct.create(root_parameters));
+		console.log("== Generated Dummy Product ==");
+		console.log(product.toJSON());
+		console.log("============================");
+		return Promise.resolve();
+	}
+	catch (error) {
+		console.error ("Failed to generate dummy product");
 		console.error (error);
 		return Promise.reject(error);
 	}
