@@ -24,7 +24,7 @@ export function initialize_models(database) {
 		//	Setup foreign keys, indexes etc
 
 		//	Check foregin key in your database after writing all these stuff
-		ModelUser   .belongsToMany(ModelProduct, { through: ModelCart, foreignKey: "uuid_user" });
+		//ModelUser   .belongsToMany(ModelProduct, { through: ModelCart, foreignKey: "uuid_user" });
 		ModelProduct.belongsToMany(ModelUser,    { through: ModelCart, foreignKey: "uuid_product" });
 
 		console.log("Adding intitialization hooks");
@@ -87,7 +87,7 @@ async function generate_dummy_product(database, options) {
 			price       : 2,
 			quantity    : 1,
 			remarks     : 'Testing',
-			resImgUrl   : 'https://www.google.com/url?sa=i&url=https%3A%2F%2Ftasty.co%2Frecipe%2Fhainanese-chicken-rice&psig=AOvVaw0uUmWzdBR1-65N-CiHoDis&ust=1627293024811000&source=images&cd=vfe&ved=0CAoQjRxqFwoTCMDQ9Yj5_fECFQAAAAAdAAAAABAD'
+			resImgUrl   : 'https://img.buzzfeed.com/thumbnailer-prod-us-east-1/video-api/assets/154660.jpg?output-format=auto&output-quality=auto'
 		};
 		//	Find for existing CART with the same id, create or update
 		var product = await ModelProduct.findOne({where: { "uuid": root_parameters.uuid }});

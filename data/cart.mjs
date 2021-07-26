@@ -24,7 +24,7 @@ export class ModelCart extends Model {
 	static initialize(database) {
 		ModelCart.init({
 			"uuid_product"       : { type: DataTypes.CHAR(36),    primaryKey: true, allowNull: false },
-			"uuid_user":    { type: DataTypes.CHAR(36), primaryKey: true, allowNull: false  },
+			"uuid_user":    { type: DataTypes.CHAR(36), primaryKey: true, allowNull: false, defaultValue: DataTypes.UUIDV4  },
             "quantity"   : { type:DataTypes.INTEGER,     allowNull: false, defaultValue: 1},
 		}, {
 			"sequelize": database,
