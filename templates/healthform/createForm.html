@@ -1,0 +1,30 @@
+{% extends "staffBase.html" %}
+{% block title %}xhotel - Create Health Declaration Form{% endblock %}
+
+{% block PageContent %}
+{% from "includes/_formHelper.html" import render_field %}
+
+<h1 class="display-4">Health Declaration</h1>
+
+<form method="POST" action="">
+  <div class="form-group">
+    {{ render_field(form.employee_name, class="form-control") }}
+  </div>
+  <div class="form-group">
+    {{ render_field(form.temp, class="form-control") }}
+  </div>
+  <div class="form-group">
+    {{ render_field(form.q1, class="form-check", style="list-style-type:none") }}
+    </div>
+  <div class="form-group">
+    {{ render_field(form.q2, class="form-check", style="list-style-type:none") }}
+    </div>
+  <div class="form-group">
+    {{ render_field(form.q3, class="form-check", style="list-style-type:none") }}
+    </div>
+  <div class="form-group">
+    {{ render_field(form.q4, class="form-check", style="list-style-type:none") }}
+    </div>
+  <input type="submit" value="Submit" class="btn btn-primary"/>
+</form>
+{% endblock PageContent %}
