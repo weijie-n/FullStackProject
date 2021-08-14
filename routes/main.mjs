@@ -47,6 +47,7 @@ import RouterOrder from "./orders.mjs";
 router.use("/orders", RouterOrder);
 
 import RouterCart from "./cart.mjs";
+import { ModelProduct } from "../data/product.mjs";
 router.use("/cart", RouterCart);
 
 // ----------------
@@ -56,11 +57,19 @@ router.get("/", async function (req, res) {
   return res.redirect("/home");
 });
 
+router.post("/contactUs", async function(req,res) {
+  //store into sql
+  req.session.contact = true;
+  return res.redirect("/");
+
+
+})
 router.get("/home", async function (req, res) {
   console.log("Home page accessed");
-  return res.render("index.html", {
-    title: "Hello  Not Today",
+  res.render("index.html", {
+    contact: req.session.contact
   });
+  req.session.contact = false;
 });
 
 router.get("/about", async function (req, res) {
@@ -69,4 +78,8 @@ router.get("/about", async function (req, res) {
     author: "The awesome programmer",
     values: [1, 2, 3, 4, 5, 6],
   });
+
+
 });
+
+

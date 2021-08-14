@@ -22,10 +22,10 @@ export class ModelProduct extends Model {
 			"dateCreated": { type: DataTypes.DATE(),      allowNull: false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
 			"dateUpdated": { type: DataTypes.DATE(),      allowNull: false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
 			"name"       : { type: DataTypes.STRING(64),  allowNull: false },
-			"price"      : { type: DataTypes.INTEGER,     allowNull: false },
+			"price"      : { type: DataTypes.FLOAT,     allowNull: false },
 			"quantity"   : { type: DataTypes.INTEGER,     allowNull: false },
-			"remarks"    : { type: DataTypes.STRING(1024), defaultValue: "", allowNull: false },
-			"resImgUrl"  : { type: DataTypes.STRING(1024),  allowNull: false, defaultValue: "/public/img/null.png" }
+			"remarks"    : { type: DataTypes.STRING(1024), defaultValue: "", allowNull: true},
+			"resImgUrl"  : { type: DataTypes.STRING(1024),  allowNull: false }
 		}, {
 			"sequelize": database,
 			"modelName": "Products",

@@ -12,6 +12,12 @@ h1, h2, h3, h4, h5, h6 {
 {% endblock PageCSS %}
 
 {% block PageContent %}
+{% if contact %}
+<div class="alert alert-success alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  Successfully Received!
+</div>
+{% endif %}
 <!-- About Section -->
 <div class="w3-row w3-padding-64" id="about">
   <div class="w3-col m6 w3-padding-large w3-hide-small">
@@ -36,21 +42,21 @@ h1, h2, h3, h4, h5, h6 {
   <br>
   <form method = "post" action="/contactUs">
     <div class="form-group">
-      <label for="name">Name</label>
-      <input type="name" name="name" class="form-control" value="{{name}}" required>
+      <label for="name">Name*</label>
+      <input type="name" name="name" class="form-control" required>
     </div>
     <div class="form-group">
-      <label for="email">Email</label>
-      <input type="email" name="email" class="form-control" value="{{email}}" required>
+      <label for="email">Email*</label>
+      <input type="email" name="email" class="form-control" required>
     </div>
     <div class="form-group">
       <label for="number">Phone Number</label>
-      <input type="number" name="number" class="form-control" value="{{number}}">
+      <input type="text" name="number" class="form-control" pattern="[0-9]{8}">
     </div>
     <div id="prof">
       <div class="form-group">
-        <label for="remarks">Comment</label>
-        <input type="text" name="comment" class="form-control" value="{{Comment}}" required>
+        <label for="remarks">Comment*</label>
+        <input type="text" name="comment" class="form-control" required>
       </div>
     </div>
     <input type="submit" value="Submit" class="btn btn-primary"/>
