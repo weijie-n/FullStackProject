@@ -87,7 +87,7 @@ await ModelProduct.update(
 	return res.redirect("/product/view")
 }
 
-router.post("/delete",    Dproduct_process);
+router.get("/delete",    Dproduct_process);
 
 /**
  * Renders the delete product page
@@ -97,7 +97,7 @@ router.post("/delete",    Dproduct_process);
 
 async function Dproduct_process (req, res) {
 	console.log("delete product page accessed");
-	await ModelProduct.destroy({where : {name:req.body.name}});
+	await ModelProduct.destroy({where : {name:req.query.prodName}});
 	return res.redirect("/product/view");
 }
 router.get("/low",     Lproduct_page);
