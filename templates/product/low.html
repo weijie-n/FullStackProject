@@ -17,10 +17,16 @@
         <div class="dropdown-menu">
         <a class="dropdown-item" href="/products/sortBy/low_to_high">Quantity: low to high</a>
         <a class="dropdown-item" href="/products/sortBy/high_to_low">Quantity: high to low</a>
-
         </div>
+        
       </li>
     </ul>
+  </div>
+  <div class="search-container justify-content-right" >
+    <form action="/product/search" method="POST">
+      <input type="text" placeholder="Search.." name="search">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
   </div>
   </nav>
 <br>
@@ -50,36 +56,7 @@
         {% endif %}
         <td>{{ product.price }}</td>
         <td>{{ product.remarks }}</td>
-        <td><a href="/product/update/?prodName={{product.name}}" class="btn btn-warning">Update</a></td>
-        <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal_{{product.name}}">
-            Delete
-          </button></td>
-             <!-- The Modal -->
-    <div class="modal" id="myModal_{{product.name}}">
-      <div class="modal-dialog">
-        <div class="modal-content">
-
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h4 class="modal-title">Delete Confirmation</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-
-          <!-- Modal body -->
-          <div class="modal-body">
-            Are you sure you want to delete {{product.name}}?
-          </div>
-          <!-- Modal footer -->
-          <div class="modal-footer">
-            <form action="/product/delete" method="POST">
-<input type="hidden" name ='name' value='{{product.name}}'>
-            <input type="submit" value="Delete" class="btn btn-danger">
-            </form>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          </div>
-        </div>
-      </div>
-    </div>
+        <td><a href="/orders/create/?prodName={{product.name}}" class="btn btn-success">Order</a></td>
 {% endfor %}
 </tbody>
 </table>
