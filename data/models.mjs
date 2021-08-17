@@ -6,6 +6,7 @@ import { ModelUser } from './user.mjs';
 import { ModelFeedback} from './feedback.mjs'
 import { ModelCart } from './cart.mjs';
 import { ModelProduct } from './product.mjs';
+import { ModelOrders } from './orders.mjs';
 
 /**
  * @param database {ORM.Sequelize}
@@ -18,6 +19,7 @@ export function initialize_models(database) {
 		ModelFeedback.initialize(database);
 		ModelCart.initialize(database);
 		ModelProduct.initialize(database);
+		ModelOrders.initialize(database);
 
 		console.log("Building ORM model relations and indices");
 		//	Create relations between models or tables

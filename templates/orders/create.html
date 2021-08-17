@@ -1,3 +1,7 @@
+{% extends "layouts/base.html" %}
+{% block title %}xhotel - Create Form{% endblock %}
+
+{% block PageContent %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -23,7 +27,7 @@
       font-size: 32px;
       }
       h3 {
-      color: #E59866;
+      color: black;
       }
       .main-block, .info {
       display: flex;
@@ -41,7 +45,7 @@
       width: 80%; 
       padding: 25px;
       margin-bottom: 20px;
-      background: rgb(242, 210, 189);
+      background: rgb(216,216,216);
       }
       input, select {
       padding: 5px;
@@ -51,7 +55,7 @@
       border-bottom: 1px solid #eee;
       }
       input::placeholder {
-      color: #eee;
+      color: black;
       }
       option {
       background: white; 
@@ -78,7 +82,7 @@
       width: 17px;
       height: 17px;
       border-radius: 50%;
-      border: 2px solid #E59866;
+      border: 2px solid black;
       }
       label.radio:after {
       content: "";
@@ -87,8 +91,8 @@
       height: 4px;
       top: 5px;
       left: 5px;
-      border-bottom: 3px solid #E59866;
-      border-left: 3px solid #E59866;
+      border-bottom: 3px solid black;
+      border-left: 3px solid black;
       transform: rotate(-45deg);
       opacity: 0;
       }
@@ -102,7 +106,7 @@
       margin: 20px auto 0;
       border: none;
       border-radius: 5px; 
-      background: #E59866; 
+      background: #28B463; 
       font-size: 14px;
       font-weight: 600;
       color: #fff;
@@ -129,22 +133,23 @@
   </head>
   <body>
     <div class="main-block">
+      <form action="/orders/create" method = "POST">
       <h1>Order Form</h1>
       <form action="/">
         <div class="info">
-          <input class="OrderID" type="text" name="name" placeholder="Order ID">
-          <input class="ProductID" type="text" name="name" placeholder="Product ID">
-          <input class="fname" type="text" name="name" placeholder="Product Name">
-          <input class="quantity" type="integer" name="name" placeholder="Quantity">
-          <select>
+          <input class="OrderID" type="text" name="orderID" placeholder="Order ID">
+          <input class="ProductID" type="text" name="prodID" placeholder="Product ID">
+          <input class="fname" type="text" name="prodName" placeholder="Product Name">
+          <input class="quantity" type="integer" name="quantity" placeholder="Quantity">
+          <select name="supp"> 
             <option value="text" disabled selected>Supplier</option>
-            <option value="N">NTUC</option>
-            <option value="C">Cold Storage</option>
-            <option value="S">Sheng Siong</option>
+            <option value="NTUC">NTUC</option>
+            <option value="CS">Cold Storage</option>
+            <option value="SS">Sheng Siong</option>
             <option value="G">Giant</option>
             <option value="P">Prime</option>
           </select>
-          <select>
+          <select name="time">
             <option value="time" disabled selected>Pick up time</option>
             <option value="8">8:00am</option>
             <option value="9">9:00am</option>
@@ -164,7 +169,7 @@
         <h3>Delivery Method</h3>
         <div class="metod">
           <div>
-            <input type="radio" value="none" id="radioTwo" name="metod" />
+            <input type="radio" value="delivery" id="radioTwo" name="metod" />
             <label for="radioTwo" class="radio">For delivery</label>
           </div>
         </div>
@@ -173,3 +178,4 @@
     </div>
   </body>
 </html>
+{% endblock PageContent %}

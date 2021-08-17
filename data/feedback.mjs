@@ -18,10 +18,13 @@ export class ModelFeedback extends Model {
 			"uuid"       : { type: DataTypes.CHAR(36),    primaryKey: true, defaultValue: DataTypes.UUIDV4 },
 			"dateCreated": { type: DataTypes.DATE(),      allowNull: false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
 			"dateUpdated": { type: DataTypes.DATE(),      allowNull: false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
-			"name"       : { type: DataTypes.STRING(64),  allowNull: false },
-			"email"      : { type: DataTypes.STRING(128), allowNull: false },
-            "rating"     : { type: DataTypes.INTEGER,     allowNull: false, defaultValue: 0 },
-            "comments"   : { type: DataTypes.STRING(255), allowNull: true },
+			"rate"       : { type: DataTypes.STRING(255),  allowNull: false },
+			"satisfied"      : { type: DataTypes.STRING(255), allowNull: false },
+            "timeliness"     : { type: DataTypes.STRING(255),     allowNull: false },
+            "support"   : { type: DataTypes.STRING(255), allowNull: false },
+			"recommend"   : { type: DataTypes.STRING(255), allowNull: false },
+			"comments"   : { type: DataTypes.STRING(255), allowNull: true },
+            "email"   : { type: DataTypes.STRING(255), allowNull: true }
 		}, {
 			"sequelize": database,
 			"modelName": "Feedbacks",

@@ -18,11 +18,15 @@ export class ModelOrders extends Model {
 			"uuid"       : { type: DataTypes.CHAR(36),    primaryKey: true, defaultValue : DataTypes.UUIDV4 },
 			"dateCreated": { type: DataTypes.DATE(),      allowNull : false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
 			"dateUpdated": { type: DataTypes.DATE(),      allowNull : false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
-			"prodid"     : { type: DataTypes.STRING(64),  allowNull : false },
-			"prodname"   : { type: DataTypes.STRING(128), allowNull : false },
-			"quantity"   : { type: DataTypes.STRING(64),  allowNull : false },
-			"deliveredby": { type: DataTypes.DATE(),      allowNull : false, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
-			"suppid"     : { type: DataTypes.STRING(64),  allowNull : false }
+			"orderID"     : { type: DataTypes.STRING(64),  allowNull : false },
+			"prodID"   : { type: DataTypes.STRING(64), allowNull : false },
+			"prodName"   : { type: DataTypes.STRING(64),  allowNull : false },
+			"quantity": { type: DataTypes.STRING(64),      allowNull : false },
+			"supp"     : { type: DataTypes.STRING(64),  allowNull : false },
+			"time"     : { type: DataTypes.TIME(),  allowNull : false },
+			"bdate"     : { type: DataTypes.DATEONLY(),  allowNull : false },
+			"metod"     : { type: DataTypes.STRING(64),  allowNull : false }
+
 		}, {
 			"sequelize": database,
 			"modelName": "Orders",

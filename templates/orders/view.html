@@ -1,41 +1,42 @@
-{% extends "StaffBase.html" %}
-{% block title %}xhotel - Orders{% endblock %}
+{% extends "layouts/base.html" %}
+{% block title %}xhotel - View Orders Form{% endblock %}
 
-{% block content %}
-<h1 class="display-4">Orders</h1>
-<div>
-  {% if count == 0 %}
-  <p>There are no orders.</p>
-  {% elif count == 1 %}
-  <p>There is 1 order.</p>
-  {% else %}
-  <p>There are {{ count }} orders.</p>
-  {% endif %}
-</div>
-<div>
-  <table class="table table-striped">
+{% block PageContent %}
+
+<div class="container">
+  <h2>Orders</h2>
+  <table class="table">
     <thead>
       <tr>
         <th>Order ID</th>
         <th>Product ID</th>
-        <th>Name</th>
+        <th>Product Name</th>
         <th>Quantity</th>
-        <th>Delivered By</th>
         <th>Supplier</th>
+        <th>Time</th>
+        <th>Date</th>
+        <th>Method</th>
+
       </tr>
     </thead>
     <tbody>
-    {% for supp_order in supp_orders_list %}
+      {%for orders in ordlist%}
       <tr>
-        <td>{{ supp_order.get_orderID() }} </td>
-        <td>{{ supp_order.get_id() }}</td>
-        <td>{{ supp_order.get_name() }}</td>
-        <td>{{ supp_order.get_quantity() }}</td>
-        <td>{{ supp_order.get_del_by() }}</td>
-        <td>{{ supp_order.get_supp_id() }}</td>
+        <td>{{orders.orderID}}</td>
+        <td>{{orders.prodID}}</td>
+        <td>{{orders.prodName}}</td>
+        <td>{{orders.quantity}}</td>
+        <td>{{orders.supp}}</td>
+        <td>{{orders.time}}</td>
+        <td>{{orders.bdate}}</td>
+        <td>{{orders.metod}}</td>
       </tr>
-    {% endfor %}
+      {%endfor%}
     </tbody>
   </table>
 </div>
-{% endblock %}
+
+</body>
+</html>
+
+{% endblock PageContent %}
