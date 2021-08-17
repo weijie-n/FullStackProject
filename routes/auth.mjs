@@ -1,7 +1,8 @@
 import { Router } from 'express';
-// import { flashMessage } from '../utils/flashmsg.mjs';
+import { flashMessage } from '../utils/flashmsg.mjs';
 import { ModelUser } from '../data/user.mjs';
 import Hash from 'hash.js';
+import Passport from 'passport';
 
 const router = Router();
 export default router;
@@ -19,34 +20,36 @@ const regexPwd = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&
 router.get("/login", login_page);
 router.post("/login", login_process);
 router.get("/register", register_page);
-router.get("/register", register_process);
+router.post("/register", register_process);
+router.get("/logout", logout_process);
 
 /**
  * Renders the login page
- * @param {Request}  req Express Request handle
- * @param {Response} res Express Response handle
+ * @param {import('express')Request}  req Express Request handle
+ * @param {import('express')Response} res Express Response handle
  */
 async function login_page(req, res) {
 	console.log("Login page accessed");
-	return res.render('auth/login');
+	return res.render('auth/login.html');
 }
 
 /**
  * Render the registration page
- * @param {Request}  req Express Request handle
- * @param {Response} res Express Response handle
+ * @param {import('express').Request}  req Express Request handle
+ * @param {import('express').Response} res Express Response handle
  */
 async function register_page(req, res) {
 	console.log("Register page accessed");
-	return res.render('auth/register');
+	return res.render('auth/register.html');
 }
 
 /**
  * Process the login form body
- * @param {Request}  req Express Request handle
- * @param {Response} res Express Response handle
+ * @param {import('express').Request}  req Express Request handle
+ * @param {import('express').Response} res Express Response handle
+ * @param {import('express').NextFunction}
  */
-async function login_process(req, res) {
+async function login_process(req, res, next) {
 	console.log("login contents received");
 	console.log(req.body);
 
@@ -70,41 +73,47 @@ async function login_process(req, res) {
 	catch (error) {
 		console.error("There is errors with the login form body.");
 		console.error(error);
-		return res.render('auth/login', { errors: errors });
+		return res.render('auth/login.html', { errors: errors });
 	}
 
-	try {
-		const user = await ModelUser.findOne({
-			where: {
-				email: req.body.email,
-				password: Hash.sha256().update(req.body.password).digest("hex")
-			}
-		});
+	req.session.email = req.body.email;
+
+	return Passport.authenticate('local', {
+		successRedirect: "/home",
+		failureRedirect: "/auth/login.html",
+		failureFlash: true
+	})(req, res, next);
+
+	// try {
+	// 	const user = await ModelUser.findOne({where: {
+	// 		email: req.body.email,
+	// 		password: Hash.sha256().update(req.body.password).digest("hex")
+	// 	}});
 
 
-		if (user == null) {
-			errors = errors.concat({ text: "Invalid user credentials!" });
-		}
+	// 	if (user == null) {
+	// 		errors = errors.concat({ text: "Invalid user credentials!" });
+	// 	}
 
-		if (errors.length > 0) {
-			throw new Error("There are validation errors");
-		}
-		else {
-			flashMessage(res, 'success', 'Successfully login!', 'fas fa-sign-in-alt', true);
-			return res.redirect("/home");
-		}
-	}
-	catch (error) {
-		console.error(`Credentials problem: ${req.body.email} ${req.body.password}`);
-		console.error(error);
-		return res.render('auth/login', { errors: errors });
-	}
+	// 	if (errors.length > 0) {
+	// 		throw new Error("There are validation errors");
+	// 	}
+	// 	else {
+	// 		flashMessage(res, 'success', 'Successfully login!', 'fas fa-sign-in-alt', true);
+	// 		return res.redirect("/home");
+	// 	}
+	// }
+	// catch (error) {
+	// 	console.error(`Credentials problem: ${req.body.email} ${req.body.password}`);
+	// 	console.error(error);
+	// 	return res.render('auth/login', { errors: errors });
+	// }
 }
 
 /**
  * Process the registration form body
- * @param {Request}  req Express Request handle
- * @param {Response} res Express Response handle
+ * @param {import('express').Request}  req Express Request handle
+ * @param {import('express').Response} res Express Response handle
  */
 async function register_process(req, res) {
 	console.log("Register contents received");
@@ -142,7 +151,7 @@ async function register_process(req, res) {
 	catch (error) {
 		console.error("There is errors with the registration form body.");
 		console.error(error);
-		return res.render('auth/register', { errors: errors });
+		return res.render('auth/register.html', { errors: errors });
 	}
 
 	//	Create new user, now that all the test above passed
@@ -163,3 +172,57 @@ async function register_process(req, res) {
 		return res.status(500).end();
 	}
 }
+
+/**
+ * Logout current user
+ * @param {import('express').Request}  req Express Request handle
+ * @param {import('express').Response} res Express Response handle
+ */
+async function logout_process(req, res) {
+	delete req.session.email;
+	req.logout();
+	return res.redirect("/home");
+}
+
+router.get("/update", updatePage);
+async function updatePage(req, res) {
+	const name = await ModelUser.findOne({
+		where: {
+			email: req.session.email
+		}
+	});
+	console.log(name);
+	return res.render("auth/update.html", {
+		name: name.name,
+		email: name.email
+	});
+}
+
+router.post("/update", updateProcess);
+async function updateProcess(req, res) {
+	await ModelUser.update({
+		name: req.body.name,
+		email: req.body.email,
+		password: req.body.password
+	},
+		{
+			where: {
+				email: req.session.email
+			}
+		});
+	req.session.email = req.body.email;
+	return res.redirect("/");
+}
+
+router.post("/delete", deleteProcess);
+async function deleteProcess(req, res) {
+	await ModelUser.destroy(
+		{
+			where: {
+				email: req.session.email
+			}
+		});
+	delete req.session.email;
+	return res.redirect("/");
+}
+

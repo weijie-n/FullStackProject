@@ -1,11 +1,11 @@
-import Passport from "passport";
-import { Strategy } from "passport-local";
-import Hash from "hash.js";
-import { ModelUser } from "../data/user.mjs";
+import Passport from 'passport';
+import { Strategy } from 'passport-local';
+import Hash from 'hash.js';
+import { ModelUser } from '../data/user.mjs';
 
 /**
  * Initialize the passport and configure local strategy
- * @param {import('express').Express} server
+ * @param {import('express').Express} server 
  */
 export function initialize_passport(server) {
   Passport.use(LocalStrategy);
@@ -16,44 +16,46 @@ export function initialize_passport(server) {
     try {
       const user = await ModelUser.findByPk(uid);
       if (user == null) {
-        throw new Error("Invalid user id");
-      } else {
+      
+      }
+      else {
         return done(null, user);
       }
-    } catch (error) {
+    }
+    catch (error) {
       console.error(`Failed to deserialize user ${uid}`);
       console.error(error);
       return done(error, false);
     }
-  });
+  })
 
   server.use(Passport.initialize());
   server.use(Passport.session());
 }
 
-const LocalStrategy = new Strategy(
-  {
-    usernameField: "email",
-    passwordField: "password",
-  },
-  async function (email, password, done) {
-    try {
-      const user = await ModelUser.findOne({
-        where: {
-          email: email,
-          password: Hash.sha256().update(password).digest("hex"),
-        },
-      });
+const LocalStrategy = new Strategy({
+  usernameField: "email",
+  passwordField: "password"
+}, async function (email, password, done) {
 
-      if (user == null) {
-        throw new Error("Invalid Credentials");
-      } else {
-        return done(null, user);
+  try {
+    const user = await ModelUser.findOne({
+      where: {
+        email: email,
+        password: Hash.sha256().update(password).digest('hex')
       }
-    } catch (error) {
-      console.error(`Failed to auth user ${email}`);
-      console.error(error);
-      return done(error, false, { message: "Invalid user credentials" });
+    });
+
+    if (user == null) {
+      throw new Error("Invalid Credentials");
+    }
+    else {
+      return done(null, user);
     }
   }
-);
+  catch (error) {
+    console.error(`Failed to auth user ${email}`);
+    console.error(error);
+    return done(error, false, { message: "Invalid user credentials" });
+  }
+});
