@@ -7,6 +7,7 @@ import { ModelFeedback} from './feedback.mjs'
 import { ModelCart } from './cart.mjs';
 import { ModelProduct } from './product.mjs';
 import { ModelOrders } from './orders.mjs';
+import { ModelInvoice } from './invoice.mjs'
 
 /**
  * @param database {ORM.Sequelize}
@@ -20,6 +21,7 @@ export function initialize_models(database) {
 		ModelCart.initialize(database);
 		ModelProduct.initialize(database);
 		ModelOrders.initialize(database);
+		ModelInvoice.initialize(database);
 
 		console.log("Building ORM model relations and indices");
 		//	Create relations between models or tables
@@ -34,7 +36,7 @@ export function initialize_models(database) {
 		database.addHook("afterBulkSync", generate_root_account.name,  generate_root_account.bind(this, database));
 		//database.addHook("afterBulkSync", generate_dummy_accounts.name,  generate_dummy_accounts.bind(this, database));
 		database.addHook("afterBulkSync", generate_dummy_product.name,  generate_dummy_product.bind(this, database));
-
+		database.addHook("afterBulkSync", generate_dummy_invoice.name,  generate_dummy_invoice.bind(this, database));
 	}
 
 	catch (error) {
@@ -102,6 +104,39 @@ async function generate_dummy_product(database, options) {
 	}
 	catch (error) {
 		console.error ("Failed to generate dummy product");
+		console.error (error);
+		return Promise.reject(error);
+	}
+}
+
+
+
+async function generate_dummy_invoice(database, options) {
+	//	Remove this callback to ensure it runs only once
+	database.removeHook("afterBulkSync", generate_dummy_invoice.name);
+	//	Create a root user if not exists otherwise update it
+	try {
+		console.log("Generating Dummy Invoice");
+		const root_parameters = {	
+			uuid        : "00000000-0000-0000-0000-000000000005",
+			company     : "Company A",
+			address     : "180 Ang Mo Kio Ave 8, Singapore 569830",
+			customer    : "John",
+			custAddress : '123 Palm Drive',
+			remark      : '-',
+			
+		};
+		//	Find for existing CART with the same id, create or update
+		var invoice = await ModelInvoice.findOne({where: { "uuid": root_parameters.uuid }});
+		
+		invoice = await ((invoice) ? invoice.update(root_parameters): ModelInvoice.create(root_parameters));
+		console.log("== Generated Dummy Invoice ==");
+		console.log(invoice.toJSON());
+		console.log("============================");
+		return Promise.resolve();
+	}
+	catch (error) {
+		console.error ("Failed to generate dummy invoice");
 		console.error (error);
 		return Promise.reject(error);
 	}

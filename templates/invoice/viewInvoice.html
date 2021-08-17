@@ -1,0 +1,30 @@
+{% extends 'layouts/base.html' %}
+
+{% block PageContent %}
+
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">No.</th>
+        <th scope="col">Name</th>
+        <th scope="col">DateCreated</th>
+        <th scope="col">More</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in invoiceList %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ i.customer }}</td>
+        <td>{{ i.dateCreated }}</td>
+        <td><a href="/invoice/fullInvoice"><button type="button" class="btn btn-primary">View Full Invoice</button></a>
+        </td>
+        <td><form action="/invoice/deleteInvoice" method="POST"><input type="submit" class="btn btn-warning" value="Delete"><input type="hidden" name="invoiceName" value='{{ i.uuid }}'></form></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+{% endblock PageContent %}

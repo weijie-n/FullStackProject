@@ -1,4 +1,5 @@
 import ORM from 'sequelize'
+import { ModelUser } from './user.mjs';
 const { Sequelize, DataTypes, Model } = ORM;
 
 /**
@@ -37,9 +38,9 @@ export class ModelInvoice extends Model {
             "verified": { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false }
         }, {
             "sequelize": database,
-            "modelName": "Users",
+            "modelName": "Invoices",
             "hooks": {
-                "afterUpdate": ModelUser._auto_update_timestamp
+                "afterUpdate": ModelInvoice._auto_update_timestamp
             }
         });
     }
@@ -48,7 +49,7 @@ export class ModelInvoice extends Model {
      * Emulates "TRIGGER" of "AFTER UPDATE" in most SQL databases.
      * This function simply assist to update the 'dateUpdated' timestamp.
      * @private
-     * @param {ModelUser}     instance The entity model to be updated
+     * @param {ModelInvoice}     instance The entity model to be updated
      * @param {UpdateOptions} options  Additional options of update propagated from the initial call
     **/
     static _auto_update_timestamp(instance, options) {

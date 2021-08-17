@@ -1,6 +1,6 @@
 import ExpSessionStore from 'express-mysql-session';
 import ORM             from 'sequelize';
-
+import { ModelUser } from './user.mjs';
 const { Sequelize, DataTypes, Model } = ORM;
 
 import {initialize_models } from './models.mjs';

@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { v4 } from "uuid";
 
 const router = Router();
 export default router;
@@ -50,10 +51,14 @@ import RouterCart from "./cart.mjs";
 import { ModelProduct } from "../data/product.mjs";
 router.use("/cart", RouterCart);
 
+
+
+
 // ----------------
 //	TODO:	Common URL paths here
 router.get("/", async function (req, res) {
   console.log("Home page accessed");
+  
   return res.redirect("/home");
 });
 
@@ -66,9 +71,11 @@ router.post("/contactUs", async function(req,res) {
 })
 router.get("/home", async function (req, res) {
   console.log("Home page accessed");
+  req.session.cartid = v4();
   res.render("index.html", {
     contact: req.session.contact
   });
+
   req.session.contact = false;
 });
 
