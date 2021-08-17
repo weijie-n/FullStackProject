@@ -1,4 +1,7 @@
 {
 	"typescript.tsdk": "node_modules/vscode-typescript/lib",
-	"typescript.enablePromptUseWorkspaceTsdk": true
+	"typescript.enablePromptUseWorkspaceTsdk": true,
+	"cSpell.ignoreWords": [
+		"flashmsg"
+	]
 }

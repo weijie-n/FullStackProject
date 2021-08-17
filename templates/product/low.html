@@ -1,5 +1,5 @@
 {% extends "layouts/base.html" %}
-{% block title %}xhotel - Retrieve Products{% endblock %}
+{% block title %}xhotel - Retrieve Low Quantity Products{% endblock %}
 
 {% block PageContent %}
 
@@ -15,17 +15,12 @@
           Sort By
         </a>
         <div class="dropdown-menu">
-        <a class="dropdown-item" href="/product/sortBy/low_to_high">Quantity: low to high</a>
-        <a class="dropdown-item" href="/product/sortBy/high_to_low">Quantity: high to low</a>
+        <a class="dropdown-item" href="/products/sortBy/low_to_high">Quantity: low to high</a>
+        <a class="dropdown-item" href="/products/sortBy/high_to_low">Quantity: high to low</a>
+
         </div>
       </li>
     </ul>
-  </div>
-  <div class="search-container justify-content-right" >
-    <form action="/product/search" method="POST">
-      <input type="text" placeholder="Search.." name="search">
-      <button type="submit"><i class="fa fa-search"></i></button>
-    </form>
   </div>
   </nav>
 <br>
@@ -74,7 +69,6 @@
           <div class="modal-body">
             Are you sure you want to delete {{product.name}}?
           </div>
-
           <!-- Modal footer -->
           <div class="modal-footer">
             <form action="/product/delete" method="POST">
@@ -91,6 +85,3 @@
 </table>
 </div>
 {% endblock %}
-
-
-

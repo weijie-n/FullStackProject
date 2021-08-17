@@ -22,7 +22,7 @@ export class ModelInvoice extends Model {
      * @param {Sequelize} database The configured Sequelize handle
     **/
     static initialize(database) {
-        ModelUser.init({
+        ModelInvoice.init({
             "uuid": { type: DataTypes.CHAR(36), primaryKey: true, defaultValue: DataTypes.UUIDV4 }, // For unique Invoice No.
             // From 
             "company": { type: DataTypes.STRING(64), allowNull: false },

@@ -1,0 +1,85 @@
+{% extends 'layouts/base.html' %}
+
+{% block    PageCSS %}
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<style>
+body {font-family: "Times New Roman", Georgia, Serif;}
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Playfair Display";
+  letter-spacing: 5px;
+}
+#imageID {
+    height: 200px;
+    width: 50%;
+}
+</style>
+{% endblock PageCSS %}
+
+{% block PageContent %}
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+<div class="container">
+
+            <div class="col-md-6">
+                <div class="block product no-border z-depth-2-top z-depth-2--hover">
+                    <div class="block-image">
+                        {% for i in productList %}
+                        <a href="#">
+                            <img src= "{{ i.resImgUrl }}" class="text-center" id="imageID">
+                        </a>
+                        <span class="product-ribbon product-ribbon-right product-ribbon--style-1 bg-blue text-uppercase"></span>
+                    </div>
+    
+                    <div class="block-body text-center">
+                        <h3 class="heading heading-5 strong-600 text-capitalize">
+                            <a href="#">
+                                {{ i.name }}
+                            </a>
+                        </h3>
+                        <p class="product-description">
+                            Description: {{ i.remarks }}
+                        </p>
+                        <p class="product-description">
+                            Quantity: {{ i.quantity }}
+                        </p>
+                        <p class="product-description">
+                            Price: {{ i.price }}
+                        </p>
+                        
+
+                        <div class="product-buttons mt-4">
+                            <div class="row align-items-center">
+                                <div class="col-2">
+                                    <button type="button" class="btn-icon" data-toggle="tooltip" data-placement="top" title="" data-original-title="Favorite">
+                                        <i class="fa fa-heart"></i>
+                                    </button>
+                                </div>
+                                <div class="col-2">
+                                    <button type="button" class="btn-icon" data-toggle="tooltip" data-placement="top" title="" data-original-title="Compare">
+                                        <i class="fa fa-share"></i>
+                                    </button>
+                                </div>
+                                <div class="col-8">
+                                    <form action="/cart/add" method="POST">
+                                        <input class="form-control" type="hidden" id="prodName" name="prodName" value="{{ i.name }}">
+                                        
+                                        <button type="submit" class="btn btn-block btn-primary btn-circle btn-icon-left">
+                                            <i class="fa fa-shopping-cart"></i>Add to cart
+                                        </button>
+                                    </form>
+                                    <!-- <script>
+                                        console.log()
+                                    </script> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock PageContent %}
