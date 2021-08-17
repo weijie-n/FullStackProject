@@ -87,10 +87,10 @@ async function generate_dummy_product(database, options) {
 		console.log("Generating Dummy Product");
 		const root_parameters = {	
 			uuid        : "00000000-0000-0000-0000-000000000001",
-			name        : "Testing Product",
+			name        : "Chicken Rice",
 			price       : 2,
 			quantity    : 1,
-			remarks     : 'Testing',
+			remarks     : '-',
 			resImgUrl   : 'https://img.buzzfeed.com/thumbnailer-prod-us-east-1/video-api/assets/154660.jpg?output-format=auto&output-quality=auto'
 		};
 		//	Find for existing CART with the same id, create or update
